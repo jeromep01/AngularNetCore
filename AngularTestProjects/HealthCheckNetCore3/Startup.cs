@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,13 +42,21 @@ namespace HealthCheckNetCore3
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = (context) =>
+                {
+                    context.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
+                    context.Context.Response.Headers["Pragam"] = "no-cache";
+                    context.Context.Response.Headers["Expires"] = "-1";
+                };
+        });
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
 
-            app.UseRouting();
+    app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
@@ -58,18 +65,18 @@ namespace HealthCheckNetCore3
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+app.UseSpa(spa =>
+{
+    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+    // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+    spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+    if (env.IsDevelopment())
+    {
+        spa.UseAngularCliServer(npmScript: "start");
+    }
+});
         }
     }
 }
