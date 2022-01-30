@@ -27,7 +27,9 @@ namespace HealthCheckNetCore3
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddHealthChecks().AddCheck<ICMPHealthCheck>("ICMP");
+            services.AddHealthChecks().AddCheck("ICMP_01", new ICMPHealthCheck("www.ryade1.com", 100));
+            services.AddHealthChecks().AddCheck("ICMP_02", new ICMPHealthCheck("www.google.com", 100));
+            services.AddHealthChecks().AddCheck("ICMP_03", new ICMPHealthCheck("www.does-not-exists.com", 300));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +63,7 @@ namespace HealthCheckNetCore3
 
             app.UseRouting();
 
-            app.UseHealthChecks("/hc");
+            app.UseHealthChecks("/hc", new JsonHealthCheckOptions());
 
             app.UseEndpoints(endpoints =>
             {

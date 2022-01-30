@@ -8,8 +8,13 @@ namespace CaseStudies.Core
 {
     public class ICMPHealthCheck : IHealthCheck
     {
-        private string host = "www-does-not-exist.com";
-        private int timeout = 300;
+        private string host;
+        private int timeout;
+        public ICMPHealthCheck(string host, int timeout)
+        {
+            this.host = host;
+            this.timeout = timeout;
+        }
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             try
@@ -21,7 +26,8 @@ namespace CaseStudies.Core
                     switch (reply.Status)
                     {
                         case IPStatus.Success:
-                            return (reply.RoundtripTime > timeout) ? HealthCheckResult.Degraded() : HealthCheckResult.Healthy();
+                            var msg = $"ICMP to {host} took {reply.RoundtripTime} ms.";
+                            return (reply.RoundtripTime > timeout) ? HealthCheckResult.Degraded(msg) : HealthCheckResult.Healthy(msg);
 
                         default:
                             return HealthCheckResult.Unhealthy();
@@ -30,7 +36,8 @@ namespace CaseStudies.Core
             }
             catch (Exception e)
             {
-                return HealthCheckResult.Unhealthy();
+                var msg = $"ICMP to {host} failed: {e.Message}";
+                return HealthCheckResult.Unhealthy(msg);
             }
         }
     }
