@@ -4,7 +4,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 
-namespace CaseStudies.Core
+namespace CaseStudies.Core.HealthCheck
 {
     public class JsonHealthCheckOptions : HealthCheckOptions
     {

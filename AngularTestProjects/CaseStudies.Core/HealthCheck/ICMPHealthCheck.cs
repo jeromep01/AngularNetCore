@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace CaseStudies.Core
+namespace CaseStudies.Core.HealthCheck
 {
     public class ICMPHealthCheck : IHealthCheck
     {
