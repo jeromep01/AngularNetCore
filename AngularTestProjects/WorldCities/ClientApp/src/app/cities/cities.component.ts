@@ -11,12 +11,13 @@ import { City } from './city';
 })
 export class CitiesComponent {
   public cities: City[] = [];
+  public displayableColumns: string[] = ["id", "name", "latitude", "longitude"];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }
 
   ngOnInit() {
-    this.http.get<City[]>(this.baseUrl + 'api/Cities')
+    this.http.get<City[]>(this.baseUrl + 'cities')
       .subscribe(result => {
 
         this.cities = result;

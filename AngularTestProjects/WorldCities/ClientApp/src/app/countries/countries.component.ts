@@ -15,7 +15,7 @@ export class CountriesComponent {
   }
 
   ngOnInit() {
-    this.http.get<Country[]>(this.baseUrl + 'api/Countries')
+    this.http.get<Country[]>(this.baseUrl + 'countries')
       .subscribe(result => {
 
         this.countries = result;

@@ -6,7 +6,7 @@ using WorldCities.Data;
 
 namespace WorldCities.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CountriesController : ControllerBase
     {
