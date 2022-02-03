@@ -26,9 +26,16 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+
+    endpoints.MapControllerRoute(
+    name: "defaultActionApi",
+    pattern: "api/{controller}/{action=Import}/{id?}");
+});
 
 app.MapFallbackToFile("index.html");
 
