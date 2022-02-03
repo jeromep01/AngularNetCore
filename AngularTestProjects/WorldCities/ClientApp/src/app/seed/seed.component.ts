@@ -6,9 +6,18 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './seed.component.html'
 })
 export class SeedComponent {
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get(baseUrl + 'Seed/Import').subscribe(result => {
+  public importDataResult: ImportDataResult = { Cities: 0, Countries: 0 };
 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<ImportDataResult>(baseUrl + 'seed').subscribe(result => {
+      this.importDataResult = result;
+
+      console.log(this.importDataResult);
     }, error => console.error(error));
   }
+}
+
+interface ImportDataResult {
+  Cities: number;
+  Countries: number;
 }

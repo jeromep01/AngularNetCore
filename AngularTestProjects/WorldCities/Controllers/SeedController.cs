@@ -5,8 +5,8 @@ using WorldCities.Data;
 
 namespace WorldCities.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class SeedController : ControllerBase
     {
         private readonly ApplicationDbContext context;
