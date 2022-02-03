@@ -57,13 +57,14 @@ namespace WorldCities.Controllers
                         }
                     }
 
+                    var lstCities = context.Cities.ToList();
                     for (int nrow = 2; nrow <= ws.Dimension.End.Row; nrow++)
                     {
                         var row = ws.Cells[nrow, 1, nrow, ws.Dimension.End.Column];
 
                         var name = row[nrow, 1].GetValue<string>();
 
-                        if (!lstCountries.Any(x => x.Name == name))
+                        if (!lstCities.Any(x => x.Name == name))
                         {
                             var city = new City();
 

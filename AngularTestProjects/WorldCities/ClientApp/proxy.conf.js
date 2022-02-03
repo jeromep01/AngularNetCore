@@ -7,6 +7,8 @@ const PROXY_CONFIG = [
   {
     context: [
       "/seed",
+      "/cities",
+      "/countries"
     ],
     target: target,
     secure: false
