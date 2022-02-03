@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'seed',
+  selector: 'app-seed',
   templateUrl: './seed.component.html'
 })
 export class SeedComponent {

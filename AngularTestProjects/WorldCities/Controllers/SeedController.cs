@@ -20,7 +20,9 @@ namespace WorldCities.Controllers
         [HttpGet]
         public async Task<ActionResult> Import()
         {
-            var path = Path.Combine(env.ContentRootPath, string.Format("Data/Source/worldcities.xslx"));
+            var path = Path.Combine(env.ContentRootPath, string.Format("Data/Source/worldcities.xlsx"));
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
